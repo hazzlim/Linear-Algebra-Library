@@ -1,3 +1,5 @@
+import math
+
 class Vector(object):
     def __init__(self, coordinates):
         try:
@@ -27,6 +29,12 @@ class Vector(object):
     def multiply_scalar(self, scalar):
         return Vector([scalar * x for x in self.coordinates])
 
+    def magnitude(self):
+        squares_sum = sum([x * x for x in self.coordinates])
+        return math.sqrt(squares_sum)
+
+    def direction(self):
+        return self.multiply_scalar((1.0 / self.magnitude()))
 
 if __name__ == '__main__':
     v1 = Vector([1, 2, 3])
