@@ -1,4 +1,4 @@
-import math
+from math import sqrt
 
 class Vector(object):
     def __init__(self, coordinates):
@@ -31,10 +31,14 @@ class Vector(object):
 
     def magnitude(self):
         squares_sum = sum([x * x for x in self.coordinates])
-        return math.sqrt(squares_sum)
+        return sqrt(squares_sum)
 
     def direction(self):
-        return self.multiply_scalar((1.0 / self.magnitude()))
+        try:
+            return self.multiply_scalar((1.0 / self.magnitude()))
+        except ZeroDivisionError:
+            raise Exception("Cannot normalise the zero vector")
+
 
 if __name__ == '__main__':
     v1 = Vector([1, 2, 3])

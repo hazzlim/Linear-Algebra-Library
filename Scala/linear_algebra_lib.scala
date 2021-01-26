@@ -1,4 +1,5 @@
 import scala.math.sqrt
+import scala.util.Try
 
 // Types
 type Coordinate = Double
@@ -15,8 +16,11 @@ case class Vector(coordinates: List[Coordinate]) {
         Vector(coordinates.map(_ * sc))
     def magnitude() : Double =
         sqrt(coordinates.map(x => x * x).sum)
-    def direction() : Vector = 
-        this * (1.0 / magnitude)
+    def direction() : Option[Vector] = 
+        magnitude match {
+            case 0 => None
+            case m => Some(this * (1.0 / magnitude))
+        }
 }
 
 // Scalar Operations (for convenience)
@@ -50,5 +54,9 @@ v8.direction
 
 val v9 = Vector(List(1.996, 3.108, -4.554))
 v9.direction
+
+val v10 = Vector(List(0, 0))
+v10.magnitude
+v10.direction
 **/
 
